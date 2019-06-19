@@ -84,48 +84,8 @@ plotFCvsLen <- function(logTxLen, logFC, main.title,xLab="Tx.length (log2)", X.l
   return(r)
   
 }
-
 #-----------------------------------------------------
 
-
-# Step 1:
-# --------
-# function: identify_genes_with_leninfo_and_cpm_above_thersh()
-#
-# Filter genes:
-# (1) Genes with length info
-# (2) At least 1.0 cpm in all replicates of at least one biological condition in the dataset
-#
-
-
-identify_genes_with_leninfo_and_cpm_above_thresh <- function(countsFile, Conds,N.samples.cutoff=3, CPM.CUTOFF=1.0, Hs.Tx.LenFile, DatasetTitle="GSE64233_TNFa_p65kd_samples") { 
-  
-  
-  # Load count data
-  data.cnts <- read.file(countsFile)
-  
-  # Load Gene length file
-  Hs.genes.len <- read.table(file=Hs.Tx.LenFile, sep="\t", header=1, row.names=1, stringsAsFactors=F); 
-  
-  # Consider subset of genes with length info
-  cGenes <- intersect(rownames(data.cnts), rownames(Hs.genes.len))
-  
-  # Calculate cpm levels (considering only genes with length info)
-  data.cpm <- cpm(data.cnts[cGenes, 2:ncol(data.cnts)])
-  
-  # Identify "robustly expressed genes" in the dataset
-  #Conds <- list("c"=1:3, "tnfa"=4:6, "c.p65kd"=7:9, "tnfa.p65kd"=10:12)
-  I.Pgenes <- find_genes_above_count_thresh_in_Conds_subset(counts.mat=data.cpm, Conds, N.cutoff=CPM.CUTOFF, N.samples.cutoff=N.samples.cutoff) 
-  
-  # The FILTERED count data (should be used as input to the 2nd step) 
-  data.cnts.Pgenes <- data.cnts[rownames(data.cpm[I.Pgenes,]), ]
-  
-  outFile <- sprintf("%s_cnts_data_Pgenes.txt", DatasetTitle)
-  str <- sprintf("\nWriting Pgenes count file to %s\n\n", outFile)
-  cat(str, "\n")
-  write.table(data.cnts.Pgenes, file=outFile, sep="\t", quote=F, col.names=NA)
-}
-#-----------------------------------------------------
 #function: fitNBandLRtest()
 #Fit NB model and perform LR test (here group factor has 2 levels, hence the fit has 2 coef. First is the Intercept.
 #
@@ -166,8 +126,94 @@ norm_dge <- function(dge,normMethod,design,estimateDispersion=TRUE){
   return(dge.norm)
 }
 
+#-----------------------------------------------------
+#
+# function: FC_replicate_samples()
+#
+# Calculates the fold change between replicate samples. 
+# returns list of vectors of the FC values between all pairs of replicate sample 
+#
+FC_replicate_samples <- function(expr.data){
+  res <- list()
+  rep_names <-c()
+  ind <- 1
+  for(i in 1:ncol(expr.data)){
+    for(j in 1:i){
+      if (i!=j) {
+        expr.data.logFC <- log( expr.data[, i]/expr.data[, j], 2)
+        res[[ind]] <- expr.data.logFC
+        rep_names <- c(rep_names,sprintf("rep%dvs%d",i,j))
+        ind = ind +1
+      }
+    }
+  }
+  names(res) <- rep_names
+  return(res)
+}
+
+#------------------------------------------------------------
+
+plot_replicate_samples <- function(log2.Tx.Len,FC.data,normalization.method, DatasetTitle,rep_names, xLab="Tx.length (log2)", X.lim=c(8, 15), Y.lim=c(-4,4)){
+  res <- c()
+  for(i in seq(length(FC.data))){
+    if (i == 10){ plot.new()}
+    expr.data.logFC <- FC.data[[i]]
+    rep_name <- rep_names[i]
+    main.title <- sprintf("%s %s\n%s", DatasetTitle,rep_name, normalization.method);
+    r <- plotFCvsLen(logTxLen=log2.Tx.Len, logFC=expr.data.logFC, main.title,xLab, X.lim, Y.lim, cex.Main=1.0)
+    p1 <- recordPlot()
+    res <- c(res,p1)
+  }
+  return(res)
+}
+
+#------------------------------------------------------------
+FCBetweenReps <- function(fit,N.replicates,i,j){
+  contrast_vals <- rep_len(0,N.replicates)
+  contrast_vals[i] <- 1
+  contrast_vals[j] <- -1
+  x <- glmLRT(fit, contrast=contrast_vals)
+  return(x)
+}
+#------------------------------------------------------------
+
+# Step 1:
+# --------
+# function: identify_genes_with_leninfo_and_cpm_above_thersh()
+#
+# Filter genes:
+# (1) Genes with length info
+# (2) At least 1.0 cpm in all replicates of at least one biological condition in the dataset
+#
 
 
+identify_genes_with_leninfo_and_cpm_above_thresh <- function(countsFile, Conds,N.samples.cutoff=3, CPM.CUTOFF=1.0, Hs.Tx.LenFile, DatasetTitle="GSE64233_TNFa_p65kd_samples") { 
+  
+  
+  # Load count data
+  data.cnts <- read.file(countsFile)
+  
+  # Load Gene length file
+  Hs.genes.len <- read.table(file=Hs.Tx.LenFile, sep="\t", header=1, row.names=1, stringsAsFactors=F); 
+  
+  # Consider subset of genes with length info
+  cGenes <- intersect(rownames(data.cnts), rownames(Hs.genes.len))
+  
+  # Calculate cpm levels (considering only genes with length info)
+  data.cpm <- cpm(data.cnts[cGenes, 2:ncol(data.cnts)])
+  
+  # Identify "robustly expressed genes" in the dataset
+  #Conds <- list("c"=1:3, "tnfa"=4:6, "c.p65kd"=7:9, "tnfa.p65kd"=10:12)
+  I.Pgenes <- find_genes_above_count_thresh_in_Conds_subset(counts.mat=data.cpm, Conds, N.cutoff=CPM.CUTOFF, N.samples.cutoff=N.samples.cutoff) 
+  
+  # The FILTERED count data (should be used as input to the 2nd step) 
+  data.cnts.Pgenes <- data.cnts[rownames(data.cpm[I.Pgenes,]), ]
+  
+  outFile <- sprintf("%s_cnts_data_Pgenes.txt", DatasetTitle)
+  str <- sprintf("\nWriting Pgenes count file to %s\n\n", outFile)
+  cat(str, "\n")
+  write.table(data.cnts.Pgenes, file=outFile, sep="\t", quote=F, col.names=NA)
+}
 #-----------------------------------------------------
 
 #
@@ -351,55 +397,7 @@ length_bias_analysis_compare_biological_conditions <- function (countsFile.Pgene
 
 
 #------------------------------------------------------------
-#
-# function: FC_replicate_samples()
-#
-# Calculates the fold change between replicate samples. 
-# returns list of vectors of the FC values between all pairs of replicate sample 
-#
-FC_replicate_samples <- function(expr.data){
-  res <- list()
-  rep_names <-c()
-  ind <- 1
-  for(i in 1:ncol(expr.data)){
-    for(j in 1:i){
-      if (i!=j) {
-        expr.data.logFC <- log( expr.data[, i]/expr.data[, j], 2)
-        res[[ind]] <- expr.data.logFC
-        rep_names <- c(rep_names,sprintf("rep%dvs%d",i,j))
-        ind = ind +1
-      }
-    }
-  }
-  names(res) <- rep_names
-  return(res)
-}
 
-#------------------------------------------------------------
-
-plot_replicate_samples <- function(log2.Tx.Len,FC.data,normalization.method, DatasetTitle,rep_names, xLab="Tx.length (log2)", X.lim=c(8, 15), Y.lim=c(-4,4)){
-  res <- c()
-  for(i in seq(length(FC.data))){
-    if (i == 10){ plot.new()}
-    expr.data.logFC <- FC.data[[i]]
-    rep_name <- rep_names[i]
-    main.title <- sprintf("%s %s\n%s", DatasetTitle,rep_name, normalization.method);
-    r <- plotFCvsLen(logTxLen=log2.Tx.Len, logFC=expr.data.logFC, main.title,xLab, X.lim, Y.lim, cex.Main=1.0)
-    p1 <- recordPlot()
-    res <- c(res,p1)
-  }
-  return(res)
-}
-
-#------------------------------------------------------------
-FCBetweenReps <- function(fit,N.replicates,i,j){
-  contrast_vals <- rep_len(0,N.replicates)
-  contrast_vals[i] <- 1
-  contrast_vals[j] <- -1
-  x <- glmLRT(fit, contrast=contrast_vals)
-  return(x)
-}
-#------------------------------------------------------------
 length_bias_analysis_compare_replicate_samples <- function(countsFile.Pgenes, Hs.Tx.LenFile,N.replicates=3, DatasetTitle="TNFa.p65kd", Rep.first.col=5, X.lim=c(8, 15), Y.lim=c(-3,3)) {
   
   pdfFile <- sprintf("%s_replicate_samples_analysis_plots.pdf", DatasetTitle);
