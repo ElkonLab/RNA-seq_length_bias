@@ -1,8 +1,6 @@
 ---
 title: "TNFa GSE64233"
-output:
-  html_document: default
-  pdf_document: default
+output: pdf_document
 ---
 
 The file length_bias_analysis.R , the counts file and the Tx.len.file should be located in Counts_data folder within the working directory.
