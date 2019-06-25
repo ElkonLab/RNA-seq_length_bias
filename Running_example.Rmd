@@ -1,9 +1,7 @@
 ---
 title: "running example"
 author: "Zohar"
-output:
-  pdf_document: default
-  html_document: default
+output: github_document
 ---
 
 ## TNFa GSE64233
