@@ -5,10 +5,10 @@ Imports: cqn, edgeR
 1. mkdir length_bias\
 2. cd length_bias\
 3. git clone https://github.com/ElkonLab/RNA-seq_length_bias.git\
-or download the folder
+or directly download the folder
 
-For running example see Running_example.docx
-or create it by yourself from using R markdown from the file Running_example.Rmd
+For running example see Running_example.html
+or create it by yourself in different format using R markdown with the file Running_example.Rmd
 
 There are 4 steps in the anslysis:
 
