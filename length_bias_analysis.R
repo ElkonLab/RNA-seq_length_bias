@@ -57,8 +57,8 @@ identify_genes_with_leninfo_and_cpm_above_thresh <- function(countsFile, Conds,N
 
 length_bias_analysis_compare_biological_conditions <- function (countsFile.Pgenes, Hs.Tx.LenFile, DatasetTitle="TNFa.p65kd", X.lim=c(8, 15), Y.lim=c(-2,2)) {
   
-  pdfFile <- sprintf("%s_biological_conditions_analysis_plots.pdf", DatasetTitle);
-  pdf(pdfFile)
+  #pdfFile <- sprintf("%s_biological_conditions_analysis_plots.pdf", DatasetTitle);
+  #pdf(pdfFile)
   par(mfrow=c(2,3))
   P.bio <- array(dim=c(1, 6))
   Spearman.r.bio <- array(dim=c(1, 6))
@@ -169,7 +169,7 @@ length_bias_analysis_compare_biological_conditions <- function (countsFile.Pgene
   str <- sprintf("\nResults recorded in %s\n", outFile)
   cat(str, "\n")
 
-  invisible(dev.off())
+  #invisible(dev.off())
   
   res
   
@@ -198,9 +198,9 @@ length_bias_analysis_compare_biological_conditions <- function (countsFile.Pgene
 
 length_bias_analysis_compare_replicate_samples <- function(countsFile.Pgenes, Hs.Tx.LenFile,N.replicates=3, DatasetTitle="TNFa.p65kd", Rep.first.col=5, X.lim=c(8, 15), Y.lim=c(-3,3)) {
   
-  pdfFile <- sprintf("%s_replicate_samples_analysis_plots.pdf", DatasetTitle);
+  #pdfFile <- sprintf("%s_replicate_samples_analysis_plots.pdf", DatasetTitle);
   n_pairs <- (N.replicates * (N.replicates-1))/2
-  pdf(pdfFile)
+ # pdf(pdfFile)
   par(mfrow=c(3,3))
   P.rep <- array(dim=c(5, n_pairs))
   Spearman.r.rep <- array(dim=c(5, n_pairs))
@@ -341,7 +341,7 @@ length_bias_analysis_compare_replicate_samples <- function(countsFile.Pgenes, Hs
   str <- sprintf("\nResults recorded in %s\n", outFile)
   cat(str, "\n")
   
-  invisible(dev.off())
+  #invisible(dev.off())
   
   res
 }
@@ -365,9 +365,9 @@ length_bias_analysis_compare_replicate_samples <- function(countsFile.Pgenes, Hs
 
 length_bias_analysis_cqn_normalization <- function (countsFile.Pgenes, Hs.Tx.GC.Content.And.LenFile,N.replicates=3, DatasetTitle="TNFa.p65kd", Rep.first.col=5, X.lim=c(8, 15), Y.lim=c(-4,4)) {
   
-  pdfFile <- sprintf("%s_CQN_replicate_samples_analysis_plots.pdf", DatasetTitle);
+ # pdfFile <- sprintf("%s_CQN_replicate_samples_analysis_plots.pdf", DatasetTitle);
   n_pairs <- (N.replicates * (N.replicates-1))/2
-  pdf(pdfFile)
+ # pdf(pdfFile)
   par(mfrow=c(3,n_pairs))
   P.rep <- array(dim=c(3, n_pairs))
   Spearman.r.rep <- array(dim=c(3, n_pairs))
@@ -474,7 +474,7 @@ length_bias_analysis_cqn_normalization <- function (countsFile.Pgenes, Hs.Tx.GC.
   
   FC.data <- FC_replicate_samples((2^CQN_norm_replicates) + 1) # add 1 for pseudo count
   plot_replicate_samples(log(counts$length,2),FC.data,"CQN_GC_Length",DatasetTitle,rep_names,xLab="Length (log2)", X.lim, Y.lim)
-  invisible(dev.off())
+  #invisible(dev.off())
   
   for(i in seq(length(FC.data))){
     rep.p <- cor.test(log2.Tx.Len, FC.data[[i]], method="spearman")
@@ -488,8 +488,8 @@ length_bias_analysis_cqn_normalization <- function (countsFile.Pgenes, Hs.Tx.GC.
   str <- sprintf("\nResults recorded in %s\n", outFile)
   cat(str, "\n")
   
-  pdfFile <- sprintf("%s_CQN_biological_conditions_analysis_plots.pdf", DatasetTitle);
-  pdf(pdfFile)
+  #pdfFile <- sprintf("%s_CQN_biological_conditions_analysis_plots.pdf", DatasetTitle);
+  #pdf(pdfFile)
   par(mfrow=c(3,3))
   P.bio <- array(dim=c(1, 3))
   Spearman.r.bio <- array(dim=c(1, 3))
@@ -540,7 +540,7 @@ length_bias_analysis_cqn_normalization <- function (countsFile.Pgenes, Hs.Tx.GC.
   CQN.logFC <- calcLogFC((2^CQN_norm)+1,Conds) #add 1 pseudo count
   main.title <- sprintf("%s: CQN_GC_Length", DatasetTitle);
   r <- plotFCvsLen(logTxLen = log(counts$length,2),logFC = CQN.logFC, main.title = main.title ,xLab = "Length (log2)", X.lim = X.lim, Y.lim = Y.lim)
-  invisible(dev.off())
+  #invisible(dev.off())
   
   P.bio[1, 3]          <- r$p.value; 
   Spearman.r.bio[1, 3] <- r$estimate; 
