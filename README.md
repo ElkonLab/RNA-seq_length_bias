@@ -5,10 +5,12 @@ For the running example:
 1. mkdir length_bias
 2. cd length_bias
 3. git clone https://github.com/ElkonLab/RNA-seq_length_bias.git
+
 via command line:
 4. open R (version >= 5.3.3)
 5. setwd(.)
 6. rmarkdown::render('Running_example.Rmd')
+
 via R studio:
 open Running_example.Rmd
 
