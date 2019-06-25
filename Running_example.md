@@ -101,18 +101,18 @@ length_bias_analysis_cqn_normalization (countsFile.Pgenes,Tx.LenFile,N.replicate
     ## Results recorded in TNFa_GSE64233_cqn_treatment_vs_control_analysis_results.txt
     ##  
     ## cqn treatment vs control analysis results:
-    ##            edgeR.TMM    CQN_GC CQN_GC_Length
-    ## Spearman.r 0.3958778 0.3595888    0.01505529
-    ## pval       0.0000000 0.0000000    0.09723703
+    ##            edgeR.TMM   CQN_GC CQN_GC_Length
+    ## Spearman.r 0.3958778 0.359588    0.01504588
+    ## pval       0.0000000 0.000000    0.09744636
     ## 
     ## cqn replicates results:
-    ##                 r.rep2vs1   r.rep3vs1   r.rep3vs2    p.rep2vs1
-    ## edgeR.TMM     -0.39259422 -0.46124555 -0.07632911 0.0000000000
-    ## CQN_GC        -0.40241546 -0.38927121  0.05541633 0.0000000000
-    ## CQN_GC_Length  0.03061931  0.03399511  0.01585356 0.0007423653
-    ##                  p.rep3vs1    p.rep3vs2
-    ## edgeR.TMM     0.0000000000 3.772723e-17
-    ## CQN_GC        0.0000000000 1.004642e-09
-    ## CQN_GC_Length 0.0001799892 8.075156e-02
+    ##                 r.rep2vs1   r.rep3vs1   r.rep3vs2  p.rep2vs1    p.rep3vs1
+    ## edgeR.TMM     -0.39259422 -0.46124555 -0.07632911 0.00000000 0.0000000000
+    ## CQN_GC        -0.40241570 -0.38927210  0.05541880 0.00000000 0.0000000000
+    ## CQN_GC_Length  0.03058629  0.03405004  0.01590717 0.00075224 0.0001756961
+    ##                  p.rep3vs2
+    ## edgeR.TMM     3.772723e-17
+    ## CQN_GC        1.002923e-09
+    ## CQN_GC_Length 7.973127e-02
 
 ![](Running_example_files/figure-markdown_github/Step%204:%20compare%20biological%20and%20replicate%20samples%20(on%20treatment%20replicates)%20after%20cqn%20normalization-2.png)
