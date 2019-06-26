@@ -196,7 +196,7 @@ length_bias_analysis_compare_biological_conditions <- function (countsFile.Pgene
 #
 #------------------------------------------------------------
 
-length_bias_analysis_compare_replicate_samples <- function(countsFile.Pgenes, Hs.Tx.LenFile,N.replicates=3, DatasetTitle="TNFa.p65kd", Rep.first.col=5, X.lim=c(8, 15), Y.lim=c(-3,3)) {
+length_bias_analysis_compare_replicate_samples <- function(countsFile.Pgenes, Hs.Tx.LenFile,N.replicates=3, DatasetTitle="TNFa.p65kd", Rep.first.col=5, X.lim=c(8, 15), Y.lim=c(-2,2)) {
   
   #pdfFile <- sprintf("%s_replicate_samples_analysis_plots.pdf", DatasetTitle);
   n_pairs <- (N.replicates * (N.replicates-1))/2
@@ -364,7 +364,6 @@ length_bias_analysis_compare_replicate_samples <- function(countsFile.Pgenes, Hs
 
 
 length_bias_analysis_cqn_normalization <- function (countsFile.Pgenes, Hs.Tx.GC.Content.And.LenFile,N.replicates=3, DatasetTitle="TNFa.p65kd", Rep.first.col=5, X.lim=c(8, 15), Y.lim=c(-4,4)) {
-  
  # pdfFile <- sprintf("%s_CQN_replicate_samples_analysis_plots.pdf", DatasetTitle);
   n_pairs <- (N.replicates * (N.replicates-1))/2
  # pdf(pdfFile)
@@ -627,7 +626,7 @@ find_genes_above_count_thresh_in_Conds_subset <- function(counts.mat, Conds, N.c
 #
 plotFCvsLen <- function(logTxLen, logFC, main.title,xLab="Length (log2)", X.lim, Y.lim, cex.Main=1.0) {
   
-  plot(logTxLen, logFC, pch=19, cex=0.6, main=main.title, xlab=xLab, ylab="FC (log2)", xlim=X.lim, ylim=Y.lim, cex.main=cex.Main)
+  plot(logTxLen, logFC, pch=19, cex=0.4, main=main.title, xlab=xLab, ylab="FC (log2)", xlim=X.lim, ylim=Y.lim, cex.main=cex.Main)
   lm <- tryCatch(lm( logFC ~  logTxLen),error=function(e) NA) 
   if(!is.na(lm)){
     abline(lm, col="red", lwd=1)  
@@ -708,7 +707,7 @@ FC_replicate_samples <- function(expr.data){
 
 #------------------------------------------------------------
 
-plot_replicate_samples <- function(log2.Tx.Len,FC.data,normalization.method, DatasetTitle,rep_names, xLab="Length (log2)", X.lim=c(8, 15), Y.lim=c(-4,4)){
+plot_replicate_samples <- function(log2.Tx.Len,FC.data,normalization.method, DatasetTitle,rep_names, xLab="Length (log2)", X.lim=c(8, 15), Y.lim=c(-2,2)){
   res <- c()
   for(i in seq(length(FC.data))){
     if (i == 10){ plot.new()}

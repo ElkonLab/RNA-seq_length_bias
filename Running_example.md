@@ -1,7 +1,7 @@
 TNFa GSE64233
 ================
 
-The file length\_bias\_analysis.R , the counts file and the Tx.len.file should be located in Counts\_data folder within the working directory. The output file is cnts\_data\_Pgenes.txt
+The file length\_bias\_analysis.R , the counts file and the Tx.len.file should be located in Counts\_data folder within the working directory.
 
 Step 1 : Filter genes
 ---------------------
@@ -39,7 +39,7 @@ length_bias_analysis_compare_biological_conditions(countsFile.Pgenes, Tx.LenFile
                                                    X.lim=c(8, 15), Y.lim=c(-2,2)) 
 ```
 
-![](Running_example_files/figure-markdown_github/Step%202:%20compare%20biological%20conditions-1.png)
+![](Running_example_files/figure-markdown_github/Step2.png)
 
     ## 
     ## Results recorded in TNFa_GSE64233_treatment_vs_control_analysis_results.txt
@@ -58,10 +58,10 @@ The count file is the filtered counts file from the step 1 (cnts\_data\_Pgenes f
 Rep.first.col <- N.replicates + 2
 length_bias_analysis_compare_replicate_samples(countsFile.Pgenes, Tx.LenFile,N.replicates=N.replicates,
                                                DatasetTitle=DatasetTitle, Rep.first.col=Rep.first.col,
-                                               X.lim=c(8, 15), Y.lim=c(-3,3)) 
+                                               X.lim=c(8, 15), Y.lim=c(-2,2)) 
 ```
 
-![](Running_example_files/figure-markdown_github/Step%203:%20compare%20replicate%20samples%20(on%20treatment%20replicates)-1.png)
+![](Running_example_files/figure-markdown_github/Step3.png)
 
     ## 
     ## Results recorded in TNFa_GSE64233_replicate_samples_analysis_results.txt
@@ -88,10 +88,10 @@ The count file is the filtered counts file from the step 1 (cnts\_data\_Pgenes f
 ``` r
 length_bias_analysis_cqn_normalization (countsFile.Pgenes,Tx.LenFile,N.replicates=N.replicates,
                                         DatasetTitle=DatasetTitle, Rep.first.col=Rep.first.col,
-                                        X.lim=c(8, 15), Y.lim=c(-4,4)) 
+                                        X.lim=c(8, 15), Y.lim=c(-2,2)) 
 ```
 
-![](Running_example_files/figure-markdown_github/Step%204:%20compare%20biological%20and%20replicate%20samples%20(on%20treatment%20replicates)%20after%20cqn%20normalization-1.png)
+![](Running_example_files/figure-markdown_github/Step4_1.png)
 
     ## 
     ## Results recorded in TNFa_GSE64233_cqn_replicate_samples_analysis_results.txt
@@ -101,18 +101,18 @@ length_bias_analysis_cqn_normalization (countsFile.Pgenes,Tx.LenFile,N.replicate
     ## Results recorded in TNFa_GSE64233_cqn_treatment_vs_control_analysis_results.txt
     ##  
     ## cqn treatment vs control analysis results:
-    ##            edgeR.TMM   CQN_GC CQN_GC_Length
-    ## Spearman.r 0.3958778 0.359588    0.01504588
-    ## pval       0.0000000 0.000000    0.09744636
+    ##            edgeR.TMM    CQN_GC CQN_GC_Length
+    ## Spearman.r 0.3958778 0.3595879    0.01503866
+    ## pval       0.0000000 0.0000000    0.09760719
     ## 
     ## cqn replicates results:
-    ##                 r.rep2vs1   r.rep3vs1   r.rep3vs2  p.rep2vs1    p.rep3vs1
-    ## edgeR.TMM     -0.39259422 -0.46124555 -0.07632911 0.00000000 0.0000000000
-    ## CQN_GC        -0.40241570 -0.38927210  0.05541880 0.00000000 0.0000000000
-    ## CQN_GC_Length  0.03058629  0.03405004  0.01590717 0.00075224 0.0001756961
-    ##                  p.rep3vs2
-    ## edgeR.TMM     3.772723e-17
-    ## CQN_GC        1.002923e-09
-    ## CQN_GC_Length 7.973127e-02
+    ##                 r.rep2vs1   r.rep3vs1   r.rep3vs2    p.rep2vs1
+    ## edgeR.TMM     -0.39259422 -0.46124555 -0.07632911 0.0000000000
+    ## CQN_GC        -0.40241632 -0.38927306  0.05541793 0.0000000000
+    ## CQN_GC_Length  0.03062217  0.03399321  0.01584475 0.0007415161
+    ##                  p.rep3vs1    p.rep3vs2
+    ## edgeR.TMM     0.0000000000 3.772723e-17
+    ## CQN_GC        0.0000000000 1.003525e-09
+    ## CQN_GC_Length 0.0001801397 8.092021e-02
 
-![](Running_example_files/figure-markdown_github/Step%204:%20compare%20biological%20and%20replicate%20samples%20(on%20treatment%20replicates)%20after%20cqn%20normalization-2.png)
+![](Running_example_files/figure-markdown_github/Step4_2.png)

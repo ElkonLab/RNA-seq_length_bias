@@ -1,13 +1,14 @@
 ---
 title: "TNFa GSE64233"
-output: word_document
+output: github_document
 ---
 
 The file length_bias_analysis.R , the counts file and the Tx.len.file should be located in Counts_data folder within the working directory.
-The output file is cnts_data_Pgenes.txt
+
 
 ```{r setup, include=FALSE}
 source("length_bias_analysis.R")
+knitr::opts_chunk$set(global.device = TRUE)
 ```
 
 ## Step 1 : Filter genes
@@ -46,11 +47,11 @@ The output includes 2 files:
 replicate_samples_analysis_results.txt
 replicate_samples_analysis_plots.pdf
 
-```{r Step 3: compare replicate samples (on treatment replicates),warning=FALSE}
+```{r Step 3: compare replicate samples (on treatment replicates),warning=FALSE,fig.height = 6, fig.width = 6}
 Rep.first.col <- N.replicates + 2
 length_bias_analysis_compare_replicate_samples(countsFile.Pgenes, Tx.LenFile,N.replicates=N.replicates,
                                                DatasetTitle=DatasetTitle, Rep.first.col=Rep.first.col,
-                                               X.lim=c(8, 15), Y.lim=c(-3,3)) 
+                                               X.lim=c(8, 15), Y.lim=c(-2,2)) 
 ```
 ## Step 4 : compare biological and replicate samples after cqn normalization
 The count file is the filtered counts file from the step 1 (cnts_data_Pgenes file) and it need to be located in the wd.
@@ -61,10 +62,10 @@ CQN_replicate_samples_analysis_plots.pdf
 cqn_treatment_vs_control_analysis_results.txt
 CQN_biological_conditions_analysis_plots.pdf
 
-```{r Step 4: compare biological and replicate samples (on treatment replicates) after cqn normalization,warning=FALSE}
+```{r Step 4: compare biological and replicate samples (on treatment replicates) after cqn normalization,warning=FALSE,fig.height = 6, fig.width = 6}
 
 length_bias_analysis_cqn_normalization (countsFile.Pgenes,Tx.LenFile,N.replicates=N.replicates,
                                         DatasetTitle=DatasetTitle, Rep.first.col=Rep.first.col,
-                                        X.lim=c(8, 15), Y.lim=c(-4,4)) 
+                                        X.lim=c(8, 15), Y.lim=c(-2,2)) 
 
 ```
