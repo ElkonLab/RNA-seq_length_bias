@@ -1,4 +1,4 @@
-# Smaple-specific Length bias
+# Sample-specific length bias
 Imports: cqn, edgeR
 
 All the counts data, length and gc content files are in Counts_data folder.
