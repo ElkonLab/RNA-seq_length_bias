@@ -91,7 +91,7 @@ length_bias_analysis_cqn_normalization (countsFile.Pgenes,Tx.LenFile,N.replicate
                                         X.lim=c(8, 15), Y.lim=c(-2,2)) 
 ```
 
-![](Running_example_files/figure-markdown_github/Step4_1.png)
+
 
     ## 
     ## Results recorded in TNFa_GSE64233_cqn_replicate_samples_analysis_results.txt
@@ -115,4 +115,8 @@ length_bias_analysis_cqn_normalization (countsFile.Pgenes,Tx.LenFile,N.replicate
     ## CQN_GC        0.0000000000 1.003525e-09
     ## CQN_GC_Length 0.0001801397 8.092021e-02
 
+Replicate samples comparison:
+![](Running_example_files/figure-markdown_github/Step4_1.png)
+
+Biological conditions comparison:
 ![](Running_example_files/figure-markdown_github/Step4_2.png)
