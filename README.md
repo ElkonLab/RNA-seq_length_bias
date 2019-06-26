@@ -1,7 +1,13 @@
-Length bias 
-============
-TNFa GSE64233
-================
+Sample-specific length bias
+============================
+
+Imports: cqn, edgeR
+
+All the counts data, length and gc content files are in Counts_data folder.
+
+TNFa GSE64233 - Example
+=========================
+
 The file length\_bias\_analysis.R , the counts file and the Tx.len.file should be located in Counts\_data folder within the working directory.
 
 Step 1 : Filter genes
@@ -116,8 +122,11 @@ length_bias_analysis_cqn_normalization (countsFile.Pgenes,Tx.LenFile,N.replicate
     ## CQN_GC        0.0000000000 1.003525e-09
     ## CQN_GC_Length 0.0001801397 8.092021e-02
 
+
 Replicate samples comparison:
+
 ![](Running_example_files/figure-markdown_github/Step4_1.png)
 
 Biological conditions comparison:
+
 ![](Running_example_files/figure-markdown_github/Step4_2.png)
