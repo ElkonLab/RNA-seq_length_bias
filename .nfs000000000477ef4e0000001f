@@ -1,6 +1,7 @@
+Length bias 
+============
 TNFa GSE64233
 ================
-
 The file length\_bias\_analysis.R , the counts file and the Tx.len.file should be located in Counts\_data folder within the working directory.
 
 Step 1 : Filter genes
