@@ -1,6 +1,6 @@
 # Length_bias
 Imports: cqn, edgeR
-
+All the counts data and length and gc content files are in Counts_data folder.
 For full running example go to the Running_example.md file.
 
 There are 4 steps in the anslysis:
