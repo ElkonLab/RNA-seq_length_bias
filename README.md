@@ -3,18 +3,19 @@ Sample-specific length bias
 
 Imports: cqn, edgeR
 
-All the counts data, length and gc content files are in Counts_data folder.
+All the counts data, length and gc content files are in the Counts_data folder.
 
 TNFa GSE64233 - Example
 =========================
 
-The file length\_bias\_analysis.R should be loacated in the the working directory. The counts file and the length and GC content file should be located in Counts\_data folder within the working directory.
 Set the R working directory to "RNA-seq_length_bias-master".
+
+The file length\_bias\_analysis.R should be located in the the working directory. The counts file and the length and GC content file should be located in the Counts\_data folder within the working directory.
 
 Step 1 : Filter genes
 ---------------------
 
-Create filtered counts file with genes that have at least 1.0 cpm in all replicates of at least one biological condition in the dataset, and have a length and GC content data. The output is a file with the suffix "cnts\_data\_Pgenes file.txt", this file is being used as a counts file input for the next steps.
+Create the filtered counts file with genes that have at least 1.0 cpm in all replicates of at least one biological condition, and have length and GC content data. The output is a file with the suffix "cnts\_data\_Pgenes.txt". This file will be used as the counts file input for the following steps.
 
 ``` r
 source("length_bias_analysis.R")
@@ -39,7 +40,7 @@ identify_genes_with_leninfo_and_cpm_above_thresh (countsFile, Conds,N.samples.cu
 Step 2 : compare biological conditions
 --------------------------------------
 
-The count file is the filtered counts file from the previous step (cnts\_data\_Pgenes file) and it need to be located in the wd. The output includes 2 files: treatment\_vs\_control\_analysis\_results.txt biological\_conditions\_analysis\_plots.pdf
+The counts file is the filtered counts file from the previous step (cnts\_data\_Pgenes.txt file) and it need to be located in the wd. The output includes 2 files: treatment\_vs\_control\_analysis\_results.txt   biological\_conditions\_analysis\_plots.pdf
 
 ``` r
 countsFile.Pgenes <- ("TNFa_GSE64233_cnts_data_Pgenes.txt")
@@ -61,7 +62,7 @@ length_bias_analysis_compare_biological_conditions(countsFile.Pgenes, Tx.LenFile
 Step 3 : compare replicate samples
 ----------------------------------
 
-The count file is the filtered counts file from the step 1 (cnts\_data\_Pgenes file) and it need to be located in the wd. The analysis here is on the treatment replicates. For analisys on the control replicates set the variable Rep.first.col to 2. The output includes 2 files: replicate\_samples\_analysis\_results.txt replicate\_samples\_analysis\_plots.pdf
+The counts file is the filtered counts file from the step 1 (cnts\_data\_Pgenes file) and it need to be located in the wd. The analysis here is comparing treatment replicates. For analysis on the control replicates, set the variable Rep.first.col to 2. The output includes 2 files: replicate\_samples\_analysis\_results.txt   replicate\_samples\_analysis\_plots.pdf
 
 Note that for this dataset the FC calculation is opposite (eg. rep3vs1 instead of rep1vs3) to the FC depicted in the main paper.   
 
@@ -94,7 +95,7 @@ length_bias_analysis_compare_replicate_samples(countsFile.Pgenes, Tx.LenFile,N.r
 Step 4 : compare biological and replicate samples after cqn normalization
 -------------------------------------------------------------------------
 
-The count file is the filtered counts file from the step 1 (cnts\_data\_Pgenes.txt file) and it need to be located in the wd. The analysis is on the treatment replicates. For control replicates set Rep.first.col to 2. The output includes 4 files: cqn\_replicate\_samples\_analysis\_results.txt CQN\_replicate\_samples\_analysis\_plots.pdf cqn\_treatment\_vs\_control\_analysis\_results.txt CQN\_biological\_conditions\_analysis\_plots.pdf
+The counts file is the filtered counts file from the step 1 (cnts\_data\_Pgenes.txt file) and it need to be located in the wd. This analysis is comparing treatment replicates. For analysis on the control replicates, set the variable Rep.first.col to 2. The output includes 4 files: cqn\_replicate\_samples\_analysis\_results.txt   CQN\_replicate\_samples\_analysis\_plots.pdf   cqn\_treatment\_vs\_control\_analysis\_results.txt   CQN\_biological\_conditions\_analysis\_plots.pdf
 
 ``` r
 length_bias_analysis_cqn_normalization (countsFile.Pgenes,Tx.LenFile,N.replicates=N.replicates,
