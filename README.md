@@ -40,7 +40,9 @@ identify_genes_with_leninfo_and_cpm_above_thresh (countsFile, Conds,N.samples.cu
 Step 2 : compare biological conditions
 --------------------------------------
 
-The counts file is the filtered counts file from the previous step (cnts\_data\_Pgenes.txt file) and it need to be located in the wd. The output includes 2 files: treatment\_vs\_control\_analysis\_results.txt   biological\_conditions\_analysis\_plots.pdf
+The counts file is the filtered counts file from the previous step (cnts\_data\_Pgenes.txt file) and it need to be located in the wd. The output includes 2 files:
+- treatment\_vs\_control\_analysis\_results.txt
+- biological\_conditions\_analysis\_plots.pdf
 
 ``` r
 countsFile.Pgenes <- ("TNFa_GSE64233_cnts_data_Pgenes.txt")
@@ -62,7 +64,9 @@ length_bias_analysis_compare_biological_conditions(countsFile.Pgenes, Tx.LenFile
 Step 3 : compare replicate samples
 ----------------------------------
 
-The counts file is the filtered counts file from the step 1 (cnts\_data\_Pgenes file) and it need to be located in the wd. The analysis here is comparing treatment replicates. For analysis on the control replicates, set the variable Rep.first.col to 2. The output includes 2 files: replicate\_samples\_analysis\_results.txt   replicate\_samples\_analysis\_plots.pdf
+The counts file is the filtered counts file from the step 1 (cnts\_data\_Pgenes file) and it need to be located in the wd. The analysis here is comparing treatment replicates. For analysis on the control replicates, set the variable Rep.first.col to 2. The output includes 2 files:
+- replicate\_samples\_analysis\_results.txt
+- replicate\_samples\_analysis\_plots.pdf
 
 Note that for this dataset the FC calculation is opposite (eg. rep3vs1 instead of rep1vs3) to the FC depicted in the main paper.   
 
@@ -95,7 +99,11 @@ length_bias_analysis_compare_replicate_samples(countsFile.Pgenes, Tx.LenFile,N.r
 Step 4 : compare biological and replicate samples after cqn normalization
 -------------------------------------------------------------------------
 
-The counts file is the filtered counts file from the step 1 (cnts\_data\_Pgenes.txt file) and it need to be located in the wd. This analysis is comparing treatment replicates. For analysis on the control replicates, set the variable Rep.first.col to 2. The output includes 4 files: cqn\_replicate\_samples\_analysis\_results.txt   CQN\_replicate\_samples\_analysis\_plots.pdf   cqn\_treatment\_vs\_control\_analysis\_results.txt   CQN\_biological\_conditions\_analysis\_plots.pdf
+The counts file is the filtered counts file from the step 1 (cnts\_data\_Pgenes.txt file) and it need to be located in the wd. This analysis is comparing treatment replicates. For analysis on the control replicates, set the variable Rep.first.col to 2. The output includes 4 files:
+- cqn\_replicate\_samples\_analysis\_results.txt
+- CQN\_replicate\_samples\_analysis\_plots.pdf
+- cqn\_treatment\_vs\_control\_analysis\_results.txt
+- CQN\_biological\_conditions\_analysis\_plots.pdf
 
 ``` r
 length_bias_analysis_cqn_normalization (countsFile.Pgenes,Tx.LenFile,N.replicates=N.replicates,
