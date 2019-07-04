@@ -249,9 +249,10 @@ length_bias_analysis_compare_replicate_samples <- function(countsFile.Pgenes, Hs
   m <- N.replicates-1
   ind <- 1
   for(i in 1:m){ #comaprisons to replicate 1
+    rep <- sprintf("rep%dvs%d",i+1,1)
     rep.p <- cor.test(log2.Tx.Len, lrt$table[,i], method="spearman")
-    P.rep[1, i] <- rep.p$p.value; 
-    Spearman.r.rep[1, i] <- rep.p$estimate; 
+    P.rep[1, rep] <- rep.p$p.value; 
+    Spearman.r.rep[1, rep] <- rep.p$estimate; 
     FC.data[[ind]] <- lrt$table[,i]
     ind <- ind + 1
   }
@@ -259,10 +260,11 @@ length_bias_analysis_compare_replicate_samples <- function(countsFile.Pgenes, Hs
     for(i in 2:N.replicates){
       for(j in 2:i){
         if (i!=j) {
+          rep <- sprintf("rep%dvs%d",i,j)
           x <-  FCBetweenReps(fit,N.replicates,i,j) #comaprisons between the differnt pairs of replicates
           rep.p <- cor.test(log2.Tx.Len, x$table[,1], method="spearman")
-          P.rep[1,ind] <- rep.p$p.value; 
-          Spearman.r.rep[1, ind] <- rep.p$estimate; 
+          P.rep[1,rep] <- rep.p$p.value; 
+          Spearman.r.rep[1, rep] <- rep.p$estimate; 
           FC.data[[ind]] <- x$table[,1]
           ind <- ind + 1
         }
@@ -414,9 +416,10 @@ length_bias_analysis_cqn_normalization <- function (countsFile.Pgenes, Hs.Tx.GC.
   m <- N.replicates-1
   ind <- 1
   for(i in 1:m){ # cor test of all replicates FC vs. rep1 
+    rep <- sprintf("rep%dvs%d",i+1,1)
     rep.p <- cor.test(log2.Tx.Len, lrt$table[,i], method="spearman")
-    P.rep[1, i] <- rep.p$p.value; 
-    Spearman.r.rep[1, i] <- rep.p$estimate; 
+    P.rep[1, rep] <- rep.p$p.value; 
+    Spearman.r.rep[1, rep] <- rep.p$estimate; 
     FC.data[[ind]] <- lrt$table[,i]
     ind <- ind + 1
   }
@@ -424,10 +427,11 @@ length_bias_analysis_cqn_normalization <- function (countsFile.Pgenes, Hs.Tx.GC.
     for(i in 2:N.replicates){
       for(j in 2:i){
         if (i!=j) {
+          rep <- sprintf("rep%dvs%d",i,j)
           x <- FCBetweenReps(fit,N.replicates,i,j)
           rep.p <- cor.test(log2.Tx.Len, x$table[,1], method="spearman")
-          P.rep[1,ind] <- rep.p$p.value; 
-          Spearman.r.rep[1, ind] <- rep.p$estimate; 
+          P.rep[1,rep] <- rep.p$p.value; 
+          Spearman.r.rep[1, rep] <- rep.p$estimate; 
           FC.data[[ind]] <- x$table[,1]
           ind <- ind + 1
         }
